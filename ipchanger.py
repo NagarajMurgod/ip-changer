@@ -21,7 +21,7 @@ RED = '\033[31;1m'
 WHITE = '\033[m'
 
 print('--'*12 + 'WELL-COME-TO' + '--'*12)
-os.system("figlet IP - Changer ")
+print(banner)
 print('created by : 14M5K1D')
 print('--'*30)
 
@@ -104,12 +104,13 @@ class changeip:
             print(str(error))
             sys.exit('unable to connected to port 9051, [!] FAILED')
 
+interval = '20 seconds'
+password = None
+change = '0 times'
+
 def main():
-    print(banner+'\n')
-    interval = '20 seconds'
-    password = None
-    change = '0 times'
     def setcmd(option, value):
+        global interval, password, change
         if option.lower() == 'interval':
             if not value.isdigit():
                 print(f'{RED}[!] ERROR: {WHITE}Please enter a number.')
@@ -117,7 +118,7 @@ def main():
                 if not int(value)>=20:
                     print(f'[!] ERROR: {WHITE}Please enter a number which is greater than or equal to 20.')
                 else:
-                    interval = '%s seconds' % (value)
+                    interval = f'{value} seconds'
                     print(f'{GREEN} {option} ==> {value} seconds {WHITE}')
         elif option.lower() == 'password':
             password = value
@@ -129,12 +130,12 @@ def main():
                 if int(value) > 200:
                     print(f'{RED}[!] ERROR: {WHITE}You can only change IP for 200 times max.')
                 else:
-                    change = '%s times' % (value)
+                    change = f'{value} times'
                     print(f'{GREEN} {option} ==> {value} times {WHITE}')
         else:
             print(f'{RED}ERROR: INVALID OPTION SELECTED.{WHITE}')
     while True:
-        x = input(f'{WHITE}[{RED}IP-CHANGER{WHITE}] :')
+        x = input(f'{WHITE}[{RED}IP-CHANGER{WHITE}] : ')
         if 'set' in x.lower() and len(x.split(' ')) > 1:
             setcmd(x.split(' ')[1],x.split(' ')[2])
         elif 'options' in x.lower():
@@ -153,7 +154,7 @@ def main():
             if password != None and change != '0 times':
                 print(f'proceeding with the options:-\ninterval = {interval}\npassword = {password}\ntimes_to_change = {change}\n')
                 try:
-                    run = changeip(password,change,interval)
+                    run = changeip(password,int(change.split(' ')[0]),int(interval.split(' ')[0]))
                     run._check_root()
                 except Exception as e:
                     print(f'{RED} Some Error Occoured:- %s\n Exitting script...'%(e.args))
