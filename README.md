@@ -20,5 +20,6 @@ USAGE:
        STEP 4: Now open browser setting --> Network settings --> choose manual proxy configuration --> SOCKS Host 127.0.0.1 , PORT 9050
                now save the changes 
                
-       STEP 4: Run script using python3 ie.python3 ipchanger.py
+       STEP 4: Run script
+`python3 ipchanger.py`
 
